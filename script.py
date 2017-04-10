@@ -94,7 +94,7 @@ def qdaTest(means,covmats,Xtest,ytest):
 
     # IMPLEMENT THIS METHOD
 
-    
+
 
     return acc,ypred
 
