@@ -18,12 +18,29 @@ def ldaLearn(X,y):
     # covmat - A single d x d learnt covariance matrix
 
     # IMPLEMENT THIS METHOD
+    # muk = 1/nk * sum(x)
+    # sigma^2 = 1/((n-K) * sum((x-mu)^2))
+    #for i in range (1,6):
+    #    means.append(np.mean(X[y==i], axis=0))
+    #    print('Mean vectors y=%s: %s\n'%(i,means[i-1]))
+    k = int(np.max(y))
+    d = len(X[1])
+    means = np.zeros([d,k])
+    d1 = np.column_stack(((X.T[0]),y))
+    d2 = np.column_stack(((X.T[1]),y))
+    print(d1)
+    print(d2)
+    for j in range(0,k):
+        means[0][j] = np.mean(d1[y==j+1])
+        means[1][j] = np.mean(d2[y==j+1])
+    print(means)
+    print('now what')
+
+    #X1 mean over each class then X2 mean over each class
+
+    covmat = np.cov(X.T)
+    #print(covmat)
     means = []
-    for i in range (1,6):
-        means.append(np.mean(X[y==i], axis=0))
-        print('Mean vectors y=%s: %s\n'%(i,means[i-1]))
-    covmat = np.cov(X,bias=1)
-    print(covmat)
     return means,covmat
 
 def qdaLearn(X,y):
@@ -36,6 +53,8 @@ def qdaLearn(X,y):
     # covmats - A list of k d x d learnt covariance matrices for each of the k classes
 
     # IMPLEMENT THIS METHOD
+    means = []
+    covmats = np.cov(X.T)
     return means,covmats
 
 def ldaTest(means,covmat,Xtest,ytest):
@@ -48,11 +67,11 @@ def ldaTest(means,covmat,Xtest,ytest):
     # ypred - N x 1 column vector indicating the predicted labels
 
     # IMPLEMENT THIS METHOD
-    print("Entering LDATest")
-    print("Xtest stuff")
-    print(Xtest)
-    print("Y test stuff")
-    print(ytest)
+    #print("Entering LDATest")
+    #print("Xtest stuff")
+    #print(Xtest)
+    #print("Y test stuff")
+    #print(ytest)
     acc = 1
     ypred = 1
 
@@ -69,6 +88,9 @@ def qdaTest(means,covmats,Xtest,ytest):
     # ypred - N x 1 column vector indicating the predicted labels
 
     # IMPLEMENT THIS METHOD
+
+    acc = 1
+    ypred = 1
     return acc,ypred
 
 def learnOLERegression(X,y):
@@ -137,10 +159,10 @@ if sys.version_info.major == 2:
 else:
     X,y,Xtest,ytest = pickle.load(open('sample.pickle','rb'),encoding = 'latin1')
 
-print('X stuff')
-print(X)
-print('y stuff')
-print(y)
+#print('X stuff')
+#print(X)
+#print('y stuff')
+#print(y)
 
 
 # LDA
